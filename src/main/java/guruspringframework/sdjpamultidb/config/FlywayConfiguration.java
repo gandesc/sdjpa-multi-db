@@ -1,6 +1,7 @@
 package guruspringframework.sdjpamultidb.config;
 
 import org.flywaydb.core.Flyway;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +17,7 @@ public class FlywayConfiguration {
   }
 
   @Bean(initMethod = "migrate")
-  public Flyway flywayCard(DataSourceProperties cardFlywayDataSourceProps) {
+  public Flyway flywayCard(@Qualifier("cardFlywayDataSourceProps") DataSourceProperties cardFlywayDataSourceProps) {
     return Flyway.configure()
         .dataSource(cardFlywayDataSourceProps.getUrl(),
             cardFlywayDataSourceProps.getUsername(),
@@ -32,7 +33,7 @@ public class FlywayConfiguration {
   }
 
   @Bean(initMethod = "migrate")
-  public Flyway flywayCardholder(DataSourceProperties cardholderFlywayDataSourceProps) {
+  public Flyway flywayCardholder(@Qualifier("cardholderFlywayDataSourceProps") DataSourceProperties cardholderFlywayDataSourceProps) {
     return Flyway.configure()
         .dataSource(cardholderFlywayDataSourceProps.getUrl(),
             cardholderFlywayDataSourceProps.getUsername(),
@@ -48,7 +49,7 @@ public class FlywayConfiguration {
   }
 
   @Bean(initMethod = "migrate")
-  public Flyway flywayPan(DataSourceProperties panFlywayDataSourceProps) {
+  public Flyway flywayPan(@Qualifier("panFlywayDataSourceProps") DataSourceProperties panFlywayDataSourceProps) {
     return Flyway.configure()
         .dataSource(panFlywayDataSourceProps.getUrl(),
             panFlywayDataSourceProps.getUsername(),
