@@ -14,6 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name="credit_card")
 public class CreditCard {
 
     @Id

@@ -15,6 +15,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
+import java.util.Properties;
 
 @Configuration
 @EnableJpaRepositories(
@@ -48,10 +49,17 @@ public class PanDatabaseConfiguration {
       @Qualifier("panDataSource") DataSource panDataSource,
       EntityManagerFactoryBuilder builder
   ) {
-    return builder.dataSource(panDataSource)
+    Properties props = new Properties();
+    props.put("hibernate.hbm2ddl.auto", "validate");
+
+    LocalContainerEntityManagerFactoryBean efb = builder.dataSource(panDataSource)
         .packages(CreditCardPAN.class)
         .persistenceUnit("pan")
         .build();
+
+    efb.setJpaProperties(props);
+
+    return efb;
   }
 
   @Bean
