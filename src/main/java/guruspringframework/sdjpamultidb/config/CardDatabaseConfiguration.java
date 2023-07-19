@@ -2,6 +2,7 @@ package guruspringframework.sdjpamultidb.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import guruspringframework.sdjpamultidb.domain.creditcard.CreditCard;
+import org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -47,6 +48,7 @@ public class CardDatabaseConfiguration {
   ) {
     Properties props = new Properties();
     props.put("hibernate.hbm2ddl.auto", "validate");
+    props.put("hibernate.physical_naming_strategy", CamelCaseToUnderscoresNamingStrategy.class);
 
     LocalContainerEntityManagerFactoryBean efb = builder.dataSource(cardDataSource)
         .packages(CreditCard.class)
